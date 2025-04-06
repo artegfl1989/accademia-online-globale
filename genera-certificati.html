@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genera Certificati - Accademia Online Globale</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .certificate-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .certificate-img {
+            height: 200px;
+            background-color: #0056b3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .certificate-img i {
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .certificate-content {
+            padding: 20px;
+        }
+        
+        .certificate-content h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        
+        .certificate-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Accademia Online Globale</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="programs.html">Programmi</a></li>
+                    <li><a href="accreditation.html">Accreditamento</a></li>
+                    <li><a href="verification.html">Verifica Certificato</a></li>
+                    <li><a href="about.html">Chi Siamo</a></li>
+                    <li><a href="contact.html">Contatti</a></li>
+                    <li><a href="genera-certificati.html">Genera Certificati</a></li>
+                    <li><a href="esame.html">Esame</a></li>
+                    <li><a href="indirizzi-studio.html">Indirizzi di Studio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Genera Certificati</h2>
+            <p>Scegli il tipo di certificato che desideri generare</p>
+        </div>
+    </section>
+
+    <section class="certificates-section">
+        <div class="container">
+            <div class="alert" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #0056b3;">
+                <h3 style="color: #0056b3; margin-top: 0;">Importante: Requisito di Esame</h3>
+                <p>Prima di generare qualsiasi certificato, è necessario superare l'esame di valutazione caricando una relazione scritta.</p>
+                <p>La relazione verrà valutata e, se approvata, potrai procedere con la generazione del certificato.</p>
+                <a href="esame.html" class="btn-small" style="margin-top: 10px;">Vai all'Esame</a>
+            </div>
+            
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Diploma di Scuola Superiore</h3>
+                        <p>Genera un diploma di scuola superiore personalizzato con i tuoi dati.</p>
+                        <a href="genera-diploma.html" class="btn">Genera Diploma</a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Laurea Triennale</h3>
+                        <p>Crea una laurea triennale personalizzata con il tuo nome e corso di studi.</p>
+                        <a href="genera-laurea-triennale.html" class="btn">Genera Laurea</a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Laurea Magistrale</h3>
+                        <p>Genera una laurea magistrale personalizzata con tutti i dettagli della tua tesi.</p>
+                        <a href="genera-laurea-magistrale.html" class="btn">Genera Laurea</a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Certificato di Corso</h3>
+                        <p>Crea un certificato per corsi brevi e specializzazioni.</p>
+                        <a href="#" class="btn" onclick="alert('Funzionalità in arrivo prossimamente!')">Prossimamente</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <h4>Accademia Online Globale</h4>
+                    <p>Forniamo istruzione di qualità in tutto il mondo dal 2023</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Link Rapidi</h4>
+                    <ul>
+                        <li><a href="programs.html">Programmi</a></li>
+                        <li><a href="admission.html">Ammissione</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="genera-certificati.html">Genera Certificati</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contattaci</h4>
+                    <p>Email: info@accademiaonlineglobale.edu</p>
+                    <p>Telefono: +39 06 1234567</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Accademia Online Globale. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

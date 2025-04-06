@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame di Valutazione - Accademia Online Globale</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .exam-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step {
+            display: none;
+            margin-bottom: 30px;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .step-header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .step-header h3 {
+            color: #0056b3;
+            margin: 0;
+        }
+        
+        .step-content {
+            margin-bottom: 20px;
+        }
+        
+        .step-navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .requirements-list {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .requirements-list h4 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        
+        .requirements-list ul {
+            margin-bottom: 0;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #0056b3;
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: #0056b3;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area p {
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .result-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .result-failure {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .progress-container {
+            margin-bottom: 30px;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .progress-step.completed:not(:last-child)::after {
+            background-color: #0056b3;
+        }
+        
+        .step-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: white;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .progress-step.completed .step-icon {
+            background-color: #0056b3;
+        }
+        
+        .progress-step.active .step-icon {
+            background-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+        }
+        
+        .step-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .progress-step.active .step-label {
+            color: #0056b3;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Accademia Online Globale</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="programs.html">Programmi</a></li>
+                    <li><a href="accreditation.html">Accreditamento</a></li>
+                    <li><a href="verification.html">Verifica Certificato</a></li>
+                    <li><a href="about.html">Chi Siamo</a></li>
+                    <li><a href="contact.html">Contatti</a></li>
+                    <li><a href="genera-certificati.html">Genera Certificati</a></li>
+                    <li><a href="esame.html">Esame</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Esame di Valutazione</h2>
+            <p>Carica la tua relazione scritta per ottenere il tuo diploma o laurea</p>
+        </div>
+    </section>
+
+    <section class="exam-section">
+        <div class="container">
+            <div class="exam-container">
+                <div class="progress-container">
+                    <div class="progress-steps">
+                        <div class="progress-step active" id="step1-progress">
+                            <div class="step-icon">1</div>
+                            <div class="step-label">Scegli Percorso</div>
+                        </div>
+                        <div class="progress-step" id="step2-progress">
+                            <div class="step-icon">2</div>
+                            <div class="step-label">Requisiti</div>
+                        </div>
+                        <div class="progress-step" id="step3-progress">
+                            <div class="step-icon">3</div>
+                            <div class="step-label">Carica File</div>
+                        </div>
+                        <div class="progress-step" id="step4-progress">
+                            <div class="step-icon">4</div>
+                            <div class="step-label">Risultato</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 1: Scegli Percorso -->
+                <div class="step active" id="step1">
+                    <div class="step-header">
+                        <h3>Scegli il tuo percorso di studi</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Seleziona il percorso di studi per cui desideri sostenere l'esame:</p>
+                        
+                        <div class="form-group">
+                            <select id="percorso" name="percorso" required>
+                                <option value="">Seleziona un percorso</option>
+                                <option value="diploma">Diploma di Scuola Superiore</option>
+                                <option value="triennale">Laurea Triennale</option>
+                                <option value="magistrale">Laurea Magistrale</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="step-navigation">
+                        <div></div>
+                        <button class="btn" id="step1-next">Avanti</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Requisiti -->
+                <div class="step" id="step2">
+                    <div class="step-header">
+                        <h3>Requisiti per la relazione</h3>
+                    </div>
+                    <div class="step-content">
+                        <div id="diploma-requirements" style="display: none;">
+                            <div class="requirements-list">
+                                <h4>Requisiti per il Diploma di Scuola Superiore</h4>
+                                <p>Per ottenere il diploma, devi preparare una relazione scritta che soddisfi i seguenti requisiti:</p>
+                                <ul>
+                                    <li>Formato: documento Word (.docx) o PDF (.pdf)</li>
+                                    <li>Lunghezza: minimo 5 pagine</li>
+                                    <li>Argomento: un tema a tua scelta relativo all'indirizzo di studi</li>
+                                    <li>Punteggio minimo richiesto: 90/100</li>
+                                    <li><strong>Importante:</strong> La relazione deve essere scritta personalmente. I contenuti generati da intelligenza artificiale verranno rilevati e comporteranno il non superamento dell'esame.</li>
+                                </ul>
+                                <p>La relazione verrà valutata in base a: contenuto, struttura, originalità e correttezza grammaticale.</p>
+                            </div>
+                        </div>
+                        
+                        <div id="triennale-requirements" style="display: none;">
+                            <div class="requirements-list">
+                                <h4>Requisiti per la Laurea Triennale</h4>
+                                <p>Per ottenere la laurea triennale, devi preparare due relazioni scritte:</p>
+                                <ul>
+                                    <li>Relazione di base:
+                                        <ul>
+                                            <li>Formato: documento Word (.docx) o PDF (.pdf)</li>
+                                            <li>Lunghezza: minimo 10 pagine</li>
+                                            <li>Punteggio minimo richiesto: 90/100</li>
+                                        </ul>
+                                    </li>
+                                    <li>Tesi finale:
+                                        <ul>
+                                            <li>Formato: documento Word (.docx) o PDF (.pdf)</li>
+                                            <li>Lunghezza: minimo 30 pagine</li>
+                                            <li>Punteggio minimo richiesto: 100/110</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>Entrambe le relazioni devono essere caricate come un unico file PDF.</p>
+                            </div>
+                        </div>
+                        
+                        <div id="magistrale-requirements" style="display: none;">
+                            <div class="requirements-list">
+                                <h4>Requisiti per la Laurea Magistrale</h4>
+                                <p>Per ottenere la laurea magistrale, devi preparare due relazioni scritte:</p>
+                                <ul>
+                                    <li>Relazione di base:
+                                        <ul>
+                                            <li>Formato: documento Word (.docx) o PDF (.pdf)</li>
+                                            <li>Lunghezza: minimo 15 pagine</li>
+                                            <li>Punteggio minimo richiesto: 90/100</li>
+                                        </ul>
+                                    </li>
+                                    <li>Tesi finale:
+                                        <ul>
+                                            <li>Formato: documento Word (.docx) o PDF (.pdf)</li>
+                                            <li>Lunghezza: minimo 50 pagine</li>
+                                            <li>Punteggio minimo richiesto: 100/110</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>Entrambe le relazioni devono essere caricate come un unico file PDF.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-navigation">
+                        <button class="btn-small" id="step2-prev">Indietro</button>
+                        <button class="btn" id="step2-next">Avanti</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Carica File -->
+                <div class="step" id="step3">
+                    <div class="step-header">
+                        <h3>Carica la tua relazione</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Carica il file della tua relazione in formato Word (.docx) o PDF (.pdf):</p>
+                        
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-file-upload"></i>
+                            <p>Trascina qui il tuo file o clicca per selezionarlo</p>
+                            <button class="btn-small" id="select-file-btn">Seleziona File</button>
+                            <input type="file" id="file-input" class="file-input" accept=".docx,.pdf">
+                        </div>
+                        
+                        <div id="file-info" style="display: none;">
+                            <p><strong>File selezionato:</strong> <span id="file-name"></span></p>
+                            <p><strong>Dimensione:</strong> <span id="file-size"></span></p>
+                        </div>
+                    </div>
+                    <div class="step-navigation">
+                        <button class="btn-small" id="step3-prev">Indietro</button>
+                        <button class="btn" id="step3-next" disabled>Valuta Relazione</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Risultato -->
+                <div class="step" id="step4">
+                    <div class="step-header">
+                        <h3>Risultato della valutazione</h3>
+                    </div>
+                    <div class="step-content">
+                        <div id="loading-result" style="text-align: center; display: none;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #0056b3; margin-bottom: 20px;"></i>
+                            <p>Stiamo valutando la tua relazione. Questo processo potrebbe richiedere alcuni minuti...</p>
+                        </div>
+                        
+                        <div id="success-result" class="result-container result-success" style="display: none;">
+                            <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                            <h3>Congratulazioni!</h3>
+                            <p>La tua relazione ha superato la valutazione con successo.</p>
+                            <div id="diploma-success" style="display: none;">
+                                <p>Punteggio ottenuto: <strong>92/100</strong></p>
+                                <p>Ora puoi procedere alla generazione del tuo diploma.</p>
+                                <a href="genera-diploma.html" class="btn" style="margin-top: 20px;">Genera Diploma</a>
+                            </div>
+                            <div id="triennale-success" style="display: none;">
+                                <p>Punteggi ottenuti:</p>
+                                <p>Relazione di base: <strong>95/100</strong></p>
+                                <p>Tesi finale: <strong>105/110</strong></p>
+                                <p>Ora puoi procedere alla generazione della tua laurea triennale.</p>
+                                <a href="genera-laurea-triennale.html" class="btn" style="margin-top: 20px;">Genera Laurea Triennale</a>
+                            </div>
+                            <div id="magistrale-success" style="display: none;">
+                                <p>Punteggi ottenuti:</p>
+                                <p>Relazione di base: <strong>98/100</strong></p>
+                                <p>Tesi finale: <strong>108/110</strong></p>
+                                <p>Ora puoi procedere alla generazione della tua laurea magistrale.</p>
+                                <a href="genera-laurea-magistrale.html" class="btn" style="margin-top: 20px;">Genera Laurea Magistrale</a>
+                            </div>
+                        </div>
+                        
+                        <div id="failure-result" class="result-container result-failure" style="display: none;">
+                            <i class="fas fa-times-circle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                            <h3>Valutazione non superata</h3>
+                            <p>La tua relazione non ha raggiunto il punteggio minimo richiesto.</p>
+                            <div id="diploma-failure" style="display: none;">
+                                <p>Punteggio ottenuto: <strong>85/100</strong></p>
+                                <p>Punteggio minimo richiesto: 90/100</p>
+                            </div>
+                            <div id="triennale-failure" style="display: none;">
+                                <p>Punteggi ottenuti:</p>
+                                <p>Relazione di base: <strong>88/100</strong></p>
+                                <p>Tesi finale: <strong>95/110</strong></p>
+                                <p>Punteggi minimi richiesti: 90/100 e 100/110</p>
+                            </div>
+                            <div id="magistrale-failure" style="display: none;">
+                                <p>Punteggi ottenuti:</p>
+                                <p>Relazione di base: <strong>92/100</strong></p>
+                                <p>Tesi finale: <strong>98/110</strong></p>
+                                <p>Punteggi minimi richiesti: 90/100 e 100/110</p>
+                            </div>
+                            <p style="margin-top: 20px;">Ti invitiamo a rivedere la tua relazione e riprovare.</p>
+                            <button class="btn" id="retry-btn" style="margin-top: 20px;">Riprova</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <h4>Accademia Online Globale</h4>
+                    <p>Forniamo istruzione di qualità in tutto il mondo dal 2023</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Link Rapidi</h4>
+                    <ul>
+                        <li><a href="programs.html">Programmi</a></li>
+                        <li><a href="admission.html">Ammissione</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="genera-certificati.html">Genera Certificati</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contattaci</h4>
+                    <p>Email: info@accademiaonlineglobale.edu</p>
+                    <p>Telefono: +39 06 1234567</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Accademia Online Globale. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const steps = document.querySelectorAll('.step');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            
+            // Step 1
+            const percorsoSelect = document.getElementById('percorso');
+            const step1Next = document.getElementById('step1-next');
+            
+            // Step 2
+            const diplomaRequirements = document.getElementById('diploma-requirements');
+            const triennaleRequirements = document.getElementById('triennale-requirements');
+            const magistraleRequirements = document.getElementById('magistrale-requirements');
+            const step2Prev = document.getElementById('step2-prev');
+            const step2Next = document.getElementById('step2-next');
+            
+            // Step 3
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const selectFileBtn = document.getElementById('select-file-btn');
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            const step3Prev = document.getElementById('step3-prev');
+            const step3Next = document.getElementById('step3-next');
+            
+            // Step 4
+            const loadingResult = document.getElementById('loading-result');
+            const successResult = document.getElementById('success-result');
+            const failureResult = document.getElementById('failure-result');
+            const diplomaSuccess = document.getElementById('diploma-success');
+            const triennaleSuccess = document.getElementById('triennale-success');
+            const magistraleSuccess = document.getElementById('magistrale-success');
+            const diplomaFailure = document.getElementById('diploma-failure');
+            const triennaleFailure = document.getElementById('triennale-failure');
+            const magistraleFailure = document.getElementById('magistrale-failure');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            // Current step and selected path
+            let currentStep = 0;
+            let selectedPath = '';
+            
+            // Function to show a specific step
+            function showStep(stepIndex) {
+                steps.forEach((step, index) => {
+                    step.classList.remove('active');
+                    progressSteps[index].classList.remove('active', 'completed');
+                    
+                    if (index < stepIndex) {
+                        progressSteps[index].classList.add('completed');
+                    } else if (index === stepIndex) {
+                        progressSteps[index].classList.add('active');
+                    }
+                });
+                
+                steps[stepIndex].classList.add('active');
+                currentStep = stepIndex;
+            }
+            
+            // Step 1 Next Button
+            step1Next.addEventListener('click', function() {
+                selectedPath = percorsoSelect.value;
+                
+                if (!selectedPath) {
+                    alert('Per favore, seleziona un percorso di studi.');
+                    return;
+                }
+                
+                // Show appropriate requirements
+                diplomaRequirements.style.display = 'none';
+                triennaleRequirements.style.display = 'none';
+                magistraleRequirements.style.display = 'none';
+                
+                if (selectedPath === 'diploma') {
+                    diplomaRequirements.style.display = 'block';
+                } else if (selectedPath === 'triennale') {
+                    triennaleRequirements.style.display = 'block';
+                } else if (selectedPath === 'magistrale') {
+                    magistraleRequirements.style.display = 'block';
+                }
+                
+                showStep(1);
+            });
+            
+            // Step 2 Navigation
+            step2Prev.addEventListener('click', function() {
+                showStep(0);
+            });
+            
+            step2Next.addEventListener('click', function() {
+                showStep(2);
+            });
+            
+            // Step 3 Navigation
+            step3Prev.addEventListener('click', function() {
+                showStep(1);
+            });
+            
+            // File Upload
+            selectFileBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#0056b3';
+                uploadArea.style.backgroundColor = '#f0f7ff';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length) {
+                    handleFile(fileInput.files[0]);
+                }
+            });
+            
+            function handleFile(file) {
+                // Check file type
+                const fileType = file.name.split('.').pop().toLowerCase();
+                if (fileType !== 'docx' && fileType !== 'pdf') {
+                    alert('Per favore, carica un file in formato Word (.docx) o PDF (.pdf).');
+                    return;
+                }
+                
+                // Display file info
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.style.display = 'block';
+                
+                // Enable next button
+                step3Next.disabled = false;
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes < 1024) {
+                    return bytes + ' bytes';
+                } else if (bytes < 1048576) {
+                    return (bytes / 1024).toFixed(2) + ' KB';
+                } else {
+                    return (bytes / 1048576).toFixed(2) + ' MB';
+                }
+            }
+            
+            // Step 3 Next Button (Evaluation)
+            step3Next.addEventListener('click', function() {
+                showStep(3);
+                
+                // Show loading
+                loadingResult.style.display = 'block';
+                successResult.style.display = 'none';
+                failureResult.style.display = 'none';
+                
+                // Get the file
+                const file = fileInput.files[0];
+                
+                // Simulate file analysis
+                setTimeout(function() {
+                    loadingResult.style.display = 'none';
+                    
+                    // Check if file exists
+                    if (!file) {
+                        alert('Errore: Nessun file selezionato.');
+                        showStep(2);
+                        return;
+                    }
+                    
+                    // Perform AI content detection (simulated)
+                    const aiContentDetected = detectAIContent(file);
+                    
+                    if (aiContentDetected) {
+                        // AI content detected - automatic failure
+                        failureResult.style.display = 'block';
+                        
+                        // Show appropriate failure message with AI detection notice
+                        diplomaFailure.style.display = 'none';
+                        triennaleFailure.style.display = 'none';
+                        magistraleFailure.style.display = 'none';
+                        
+                        // Create AI detection message if it doesn't exist
+                        let aiDetectionMessage = document.getElementById('ai-detection-message');
+                        if (!aiDetectionMessage) {
+                            aiDetectionMessage = document.createElement('div');
+                            aiDetectionMessage.id = 'ai-detection-message';
+                            aiDetectionMessage.innerHTML = `
+                                <div style="background-color: #f8d7da; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #721c24;">
+                                    <h4 style="color: #721c24; margin-top: 0;">Contenuto generato da AI rilevato</h4>
+                                    <p>Il sistema ha rilevato che la relazione è stata scritta utilizzando strumenti di intelligenza artificiale.</p>
+                                    <p>Le relazioni devono essere scritte personalmente dallo studente. L'utilizzo di contenuti generati da AI non è consentito per questo esame.</p>
+                                </div>
+                            `;
+                            failureResult.insertBefore(aiDetectionMessage, failureResult.querySelector('button').parentNode);
+                        }
+                        
+                        if (selectedPath === 'diploma') {
+                            diplomaFailure.style.display = 'block';
+                        } else if (selectedPath === 'triennale') {
+                            triennaleFailure.style.display = 'block';
+                        } else if (selectedPath === 'magistrale') {
+                            magistraleFailure.style.display = 'block';
+                        }
+                        
+                        // Store exam status in localStorage - FAILED
+                        localStorage.setItem('examStatus', 'failed');
+                        localStorage.setItem('examPath', selectedPath);
+                        localStorage.setItem('examDate', new Date().toISOString());
+                        localStorage.removeItem('certificateGenerated');
+                        
+                    } else {
+                        // No AI content detected - proceed with normal evaluation
+                        // Randomly determine success or failure (70% success rate)
+                        const isSuccess = Math.random() < 0.7;
+                        
+                        if (isSuccess) {
+                            successResult.style.display = 'block';
+                            
+                            // Show appropriate success message
+                            diplomaSuccess.style.display = 'none';
+                            triennaleSuccess.style.display = 'none';
+                            magistraleSuccess.style.display = 'none';
+                            
+                            if (selectedPath === 'diploma') {
+                                diplomaSuccess.style.display = 'block';
+                            } else if (selectedPath === 'triennale') {
+                                triennaleSuccess.style.display = 'block';
+                            } else if (selectedPath === 'magistrale') {
+                                magistraleSuccess.style.display = 'block';
+                            }
+                            
+                            // Store exam status in localStorage - PASSED
+                            localStorage.setItem('examStatus', 'passed');
+                            localStorage.setItem('examPath', selectedPath);
+                            localStorage.setItem('examDate', new Date().toISOString());
+                            localStorage.removeItem('certificateGenerated');
+                            
+                        } else {
+                            failureResult.style.display = 'block';
+                            
+                            // Show appropriate failure message
+                            diplomaFailure.style.display = 'none';
+                            triennaleFailure.style.display = 'none';
+                            magistraleFailure.style.display = 'none';
+                            
+                            if (selectedPath === 'diploma') {
+                                diplomaFailure.style.display = 'block';
+                            } else if (selectedPath === 'triennale') {
+                                triennaleFailure.style.display = 'block';
+                            } else if (selectedPath === 'magistrale') {
+                                magistraleFailure.style.display = 'block';
+                            }
+                            
+                            // Store exam status in localStorage - FAILED
+                            localStorage.setItem('examStatus', 'failed');
+                            localStorage.setItem('examPath', selectedPath);
+                            localStorage.setItem('examDate', new Date().toISOString());
+                            localStorage.removeItem('certificateGenerated');
+                        }
+                    }
+                }, 3000);
+            });
+            
+            // Retry Button
+            retryBtn.addEventListener('click', function() {
+                showStep(0);
+                
+                // Reset form
+                percorsoSelect.value = '';
+                fileInput.value = '';
+                fileInfo.style.display = 'none';
+                step3Next.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
