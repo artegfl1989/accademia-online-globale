@@ -6,6 +6,7 @@
     <title>Genera Diploma - Accademia Online Globale</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         .form-container {
             max-width: 800px;
@@ -128,6 +129,46 @@
                         <label for="indirizzo">Indirizzo di Studio</label>
                         <select id="indirizzo" name="indirizzo" required>
                             <option value="">Seleziona un indirizzo</option>
+                            <option value="Liceo Scientifico">Liceo Scientifico</option>
+                            <option value="Liceo Classico">Liceo Classico</option>
+                            <option value="Liceo Linguistico">Liceo Linguistico</option>
+                            <option value="Liceo Artistico">Liceo Artistico</option>
+                            <option value="Liceo delle Scienze Umane">Liceo delle Scienze Umane</option>
+                            <option value="Liceo Musicale e Coreutico">Liceo Musicale e Coreutico</option>
+                            <option value="Istituto Tecnico Economico">Istituto Tecnico Economico</option>
+                            <option value="Istituto Tecnico Tecnologico">Istituto Tecnico Tecnologico</option>
+                            <option value="Istituto Tecnico Agrario">Istituto Tecnico Agrario</option>
+                            <option value="Istituto Tecnico per il Turismo">Istituto Tecnico per il Turismo</option>
+                            <option value="Istituto Professionale">Istituto Professionale</option>
+                            <option value="Istituto Professionale per i Servizi">Istituto Professionale per i Servizi</option>
+                            <option value="Istituto Professionale per l'Industria e l'Artigianato">Istituto Professionale per l'Industria e l'Artigianato</option>
+                            <option value="Istituto Professionale per l'Agricoltura">Istituto Professionale per l'Agricoltura</option>
+                            <option value="Studi Generali">Studi Generali</option>
+                            <option value="Scienza e Tecnologia">Scienza e Tecnologia</option>
+                            <option value="Business ed Economia">Business ed Economia</option>
+                            <option value="Arte e Discipline Umanistiche">Arte e Discipline Umanistiche</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Rimuovere il secondo menu a tendina duplicato -->
+                    <div class="form-group">
+                        <label for="indirizzo">Indirizzo di Studio</label>
+                        <select id="indirizzo" name="indirizzo" required>
+                            <option value="">Seleziona un indirizzo</option>
+                            <option value="Liceo Scientifico">Liceo Scientifico</option>
+                            <option value="Liceo Classico">Liceo Classico</option>
+                            <option value="Liceo Linguistico">Liceo Linguistico</option>
+                            <option value="Liceo Artistico">Liceo Artistico</option>
+                            <option value="Liceo delle Scienze Umane">Liceo delle Scienze Umane</option>
+                            <option value="Liceo Musicale e Coreutico">Liceo Musicale e Coreutico</option>
+                            <option value="Istituto Tecnico Economico">Istituto Tecnico Economico</option>
+                            <option value="Istituto Tecnico Tecnologico">Istituto Tecnico Tecnologico</option>
+                            <option value="Istituto Tecnico Agrario">Istituto Tecnico Agrario</option>
+                            <option value="Istituto Tecnico per il Turismo">Istituto Tecnico per il Turismo</option>
+                            <option value="Istituto Professionale">Istituto Professionale</option>
+                            <option value="Istituto Professionale per i Servizi">Istituto Professionale per i Servizi</option>
+                            <option value="Istituto Professionale per l'Industria e l'Artigianato">Istituto Professionale per l'Industria e l'Artigianato</option>
+                            <option value="Istituto Professionale per l'Agricoltura">Istituto Professionale per l'Agricoltura</option>
                             <option value="Studi Generali">Studi Generali</option>
                             <option value="Scienza e Tecnologia">Scienza e Tecnologia</option>
                             <option value="Business ed Economia">Business ed Economia</option>
@@ -162,7 +203,31 @@
                     </div>
                 </form>
                 
-                <!-- Existing preview container remains unchanged -->
+                <!-- Aggiungiamo la sezione di anteprima mancante -->
+                <div id="preview-section" style="display: none;">
+                    <h3>Anteprima del Diploma</h3>
+                    <div class="preview-container">
+                        <div class="diploma-preview">
+                            <h2>Accademia Online Globale</h2>
+                            <h3>Diploma di Scuola Superiore</h3>
+                            <p>Si certifica che</p>
+                            <h3 id="preview-nome"></h3>
+                            <p>Nato/a il <span id="preview-data-nascita"></span> a <span id="preview-luogo-nascita"></span></p>
+                            <p>Ha completato con successo il corso di studi in</p>
+                            <h4 id="preview-indirizzo"></h4>
+                            <p>Con votazione finale di <span id="preview-voto"></span></p>
+                            <p>In data <span id="preview-data-diploma"></span></p>
+                            <div class="seal">AOG</div>
+                            <div class="barcode">
+                                <p>Codice di verifica: <span id="preview-codice"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button id="download-btn" class="btn">Scarica Diploma</button>
+                        <button id="print-btn" class="btn">Stampa Diploma</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -328,7 +393,51 @@
                 return `AOG-${nameInitials}${birthYear}-${randomNum}-${timestamp.toString().slice(-6)}`;
             }
             
-            // Download functionality remains unchanged
+            // Download functionality - modificata per salvare come JPG
+            downloadBtn.addEventListener('click', function() {
+                try {
+                    // Imposta il certificato come generato nel localStorage
+                    localStorage.setItem('certificateGenerated', 'true');
+                    localStorage.setItem('certificateType', 'diploma');
+                    
+                    // Ottieni il contenuto del diploma
+                    const diplomaElement = document.querySelector('.diploma-preview');
+                    
+                    if (!diplomaElement) {
+                        console.error("Elemento diploma-preview non trovato");
+                        alert("Errore: impossibile trovare l'anteprima del diploma");
+                        return;
+                    }
+                    
+                    // Usa html2canvas per convertire l'elemento HTML in un'immagine
+                    html2canvas(diplomaElement, {
+                        scale: 2, // Migliora la qualità dell'immagine
+                        useCORS: true, // Permette di caricare immagini da altri domini
+                        logging: false,
+                        backgroundColor: "#ffffff"
+                    }).then(canvas => {
+                        // Converti il canvas in un'immagine JPG
+                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                        
+                        // Crea un link per il download
+                        const a = document.createElement('a');
+                        a.href = imgData;
+                        a.download = 'diploma_' + document.getElementById('nome').value + '_' + document.getElementById('cognome').value + '.jpg';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        
+                        // Mostra notifica
+                        alert('Diploma scaricato come immagine JPG!');
+                    }).catch(error => {
+                        console.error("Errore nella conversione in immagine:", error);
+                        alert("Errore durante la creazione dell'immagine. Riprova.");
+                    });
+                } catch (error) {
+                    console.error("Errore durante il download:", error);
+                    alert("Errore durante il download. Riprova.");
+                }
+            });
             
             // Print functionality remains unchanged
         });

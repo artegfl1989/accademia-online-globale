@@ -172,44 +172,18 @@
                 
                 // Simple validation for demonstration
                 if (code.startsWith('AOG-')) {
-                    // Extract information from the code
-                    let certType, certName, certDate, certCourse;
+                    // Semplifica il risultato - mostra solo che il certificato è valido
+                    // Nascondi i dettagli del certificato
+                    document.querySelector('.certificate-details').style.display = 'none';
                     
-                    if (code.includes('LT-')) {
-                        certType = 'Laurea Triennale';
-                        certCourse = 'Informatica';
-                    } else if (code.includes('LM-')) {
-                        certType = 'Laurea Magistrale';
-                        certCourse = 'Data Science';
-                    } else {
-                        certType = 'Diploma di Scuola Superiore';
-                        certCourse = 'Studi Generali';
-                    }
+                    // Aggiorna il messaggio di successo
+                    document.querySelector('#success-result h3').innerHTML = '<i class="fas fa-check-circle"></i> Certificato Verificato';
+                    document.querySelector('#success-result p').innerHTML = 'Il certificato è autentico e rilasciato dall\'Accademia Online Globale.<br><strong>Validazione completata con successo.</strong>';
                     
-                    // Extract initials and year if possible
-                    const parts = code.split('-');
-                    if (parts.length >= 3) {
-                        const initialsYear = parts[2];
-                        const initials = initialsYear.substring(0, 2);
-                        const year = initialsYear.substring(2);
-                        
-                        certName = `${initials.charAt(0)}. ${initials.charAt(1)}.`;
-                        certDate = `${year}-06-15`;
-                    } else {
-                        certName = 'Mario Rossi';
-                        certDate = '2023-06-15';
-                    }
-                    
-                    // Update certificate details
-                    document.getElementById('cert-type').textContent = certType;
-                    document.getElementById('cert-name').textContent = certName;
-                    document.getElementById('cert-date').textContent = new Date(certDate).toLocaleDateString('it-IT');
-                    document.getElementById('cert-course').textContent = certCourse;
-                    
-                    // Show success result
+                    // Mostra il risultato positivo
                     successResult.style.display = 'block';
                 } else {
-                    // Show error result
+                    // Mostra il risultato negativo
                     errorResult.style.display = 'block';
                 }
             });
