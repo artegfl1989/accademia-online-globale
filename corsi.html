@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corsi - Accademia di Disegno</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .course-detail {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .course-detail {
+                flex-direction: row;
+            }
+        }
+        
+        .course-image {
+            flex: 0 0 40%;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .course-info {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .course-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .course-meta {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .meta-item {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .meta-item i {
+            margin-right: 5px;
+            color: #e74c3c;
+        }
+        
+        .course-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .course-topics {
+            margin-bottom: 20px;
+        }
+        
+        .course-topics h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .course-topics ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+        
+        .course-topics li {
+            margin-bottom: 5px;
+        }
+        
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Accademia di Disegno</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corsi.html" class="active">Corsi</a></li>
+                    <li><a href="chi-siamo.html">Chi Siamo</a></li>
+                    <li><a href="contatti.html">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>I Nostri Corsi</h2>
+            <p>Scopri tutti i corsi accademici di disegno disponibili</p>
+        </div>
+    </section>
+
+    <section class="courses-section">
+        <div class="container">
+            <div id="base" class="course-detail">
+                <div class="course-image">
+                    <img src="./immagini/1.jpeg" alt="Corso di Disegno a Penna">
+                </div>
+                <div class="course-info">
+                    <h3>Disegno Base</h3>
+                    <div class="course-meta">
+                        <div class="meta-item">
+                            <i class="far fa-clock"></i>
+                            <span>1 mese</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="far fa-calendar"></i>
+                            <span>2 lezioni di 1 ora di pomeriggio</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Principianti</span>
+                        </div>
+                    </div>
+                    <div class="course-description">
+                        <p>Imparerai la tecnica disegno a penna.</p>
+                    </div>
+                    <div class="course-topics">
+                        <h4>Argomenti trattati:</h4>
+                        <ul>
+                            <li>Materiali e strumenti per il disegno</li>
+                            <li>Tecnica di Disegno a Penna con ricalco immagine, foto da monitor PC (consigliabile una pellicola trasparente per monitor PC o Mac)</li>
+                        </ul>
+                    </div>
+                    <div class="course-price">
+                        <p>€350</p>
+                    </div>
+                    <a href="contatti.html" class="btn">Iscriviti ora</a>
+                </div>
+            </div>
+
+            <!-- Removed Figura Umana course -->
+            <!-- Removed Tecniche Avanzate course -->
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Vuoi saperne di più sui nostri corsi?</h2>
+            <p>Contattaci per una consulenza personalizzata o per prenotare una lezione di prova gratuita</p>
+            <a href="contatti.html" class="btn">Contattaci ora</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Accademia di Disegno</h3>
+                    <p>Via dell'Arte 123<br>00100 Roma, Italia</p>
+                    <p>Tel: +39 06 1234567</p>
+                    <p>Email: info@accademiadisegno.it</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Collegamenti rapidi</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="corsi.html">Corsi</a></li>
+                        <li><a href="chi-siamo.html">Chi Siamo</a></li>
+                        <li><a href="contatti.html">Contatti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Seguici</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Accademia di Disegno. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
